@@ -13,6 +13,9 @@ export default class App extends Component {
     this.setState({ query: data });
   };
 
+
+  
+
   getImg() {
     const {REACT_APP_KEY} = process.env;
     axios
