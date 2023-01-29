@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
+import { getImg } from './shared/shared';
 export default class App extends Component {
   state = {
     img: [],
@@ -16,22 +16,6 @@ export default class App extends Component {
     this.setState({ query: data });
   };
 
-  getImg() {
-    const { REACT_APP_KEY } = process.env;
-    axios
-      .get('https://pixabay.com/api/', {
-        params: {
-          key: REACT_APP_KEY,
-          q: this.state.query,
-          per_page: 12,
-          page: 1,
-        },
-      })
-      .then(({ data }) => {
-        this.newState(data);
-      });
-  }
-
   newState(data) {
     console.log(data.hits);
     this.setState({ img: [...data.hits] });
@@ -39,8 +23,18 @@ export default class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query) {
-      this.getImg();
+      this.fetchImg();
       console.log('didUpdate');
+    }
+  }
+  async fetchImg() {
+    try {
+      console.log('sadasdasd');
+      const data = await getImg(this.state.query);
+      this.newState(data);
+      console.log(data);
+    } catch (error) {
+    } finally {
     }
   }
 
@@ -65,7 +59,7 @@ export default class App extends Component {
       <>
         <Searchbar onSubmit={onSubmit} />
         <ImageGallery img={img} showImgModal={showImgModal} />
-        <Button/>
+        <Button />
 
         {showModal && <Modal urlImg={imgModal} close={modalClose} />}
       </>
