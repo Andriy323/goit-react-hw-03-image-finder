@@ -2,22 +2,22 @@ import { Component } from 'react';
 import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Modal from './Modal/Modal';
 // import style from '../components/style.css'
 export default class App extends Component {
   state = {
     img: [],
     query: '',
+    showModal: false,
+    imgModal: null,
   };
 
   onSubmit = data => {
     this.setState({ query: data });
   };
 
-
-  
-
   getImg() {
-    const {REACT_APP_KEY} = process.env;
+    const { REACT_APP_KEY } = process.env;
     axios
       .get('https://pixabay.com/api/', {
         params: {
@@ -50,11 +50,28 @@ export default class App extends Component {
     }
   }
 
+  showImg = ({ largeImageURL }) => {
+    this.setState({
+      showModal: true,
+      imgModal: largeImageURL,
+    });
+  };
+
+  modalClose = () => {
+    this.setState({
+      showModal: false,
+      imgModal: null,
+    });
+  };
+
   render() {
+    const { img, showModal, imgModal } = this.state;
+    const { onSubmit, showImg, modalClose } = this;
     return (
       <>
-        <Searchbar onSubmit={this.onSubmit} />
-        <ImageGallery img={this.state.img} />
+        <Searchbar onSubmit={onSubmit} />
+        <ImageGallery img={img} showImg={showImg} />
+        {showModal && <Modal urlImg={imgModal} close={modalClose} />}
       </>
     );
   }
