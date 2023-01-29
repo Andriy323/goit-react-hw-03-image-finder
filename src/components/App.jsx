@@ -3,7 +3,6 @@ import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
-// import style from '../components/style.css'
 export default class App extends Component {
   state = {
     img: [],
@@ -30,12 +29,6 @@ export default class App extends Component {
       .then(({ data }) => {
         this.newState(data);
       });
-    // .catch(function (error) {
-    //   console.log(error);
-    // })
-    // .then(function () {
-    //   // выполняется всегда
-    // });
   }
 
   newState(data) {
@@ -50,10 +43,10 @@ export default class App extends Component {
     }
   }
 
-  showImg = ({ largeImageURL }) => {
+  showImgModal = imgLarge => {
     this.setState({
       showModal: true,
-      imgModal: largeImageURL,
+      imgModal: imgLarge,
     });
   };
 
@@ -66,11 +59,12 @@ export default class App extends Component {
 
   render() {
     const { img, showModal, imgModal } = this.state;
-    const { onSubmit, showImg, modalClose } = this;
+    const { onSubmit, showImgModal, modalClose } = this;
     return (
       <>
         <Searchbar onSubmit={onSubmit} />
-        <ImageGallery img={img} showImg={showImg} />
+        <ImageGallery img={img} showImgModal={showImgModal} />
+
         {showModal && <Modal urlImg={imgModal} close={modalClose} />}
       </>
     );
