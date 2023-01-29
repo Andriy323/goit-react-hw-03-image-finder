@@ -2,6 +2,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Button from './Button/Button';
 import Modal from './Modal/Modal';
 export default class App extends Component {
   state = {
@@ -64,6 +65,7 @@ export default class App extends Component {
       <>
         <Searchbar onSubmit={onSubmit} />
         <ImageGallery img={img} showImgModal={showImgModal} />
+        <Button/>
 
         {showModal && <Modal urlImg={imgModal} close={modalClose} />}
       </>
