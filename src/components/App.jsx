@@ -5,6 +5,8 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import { getImg } from './shared/shared';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import css from './app.module.css';
 export default class App extends Component {
   state = {
@@ -47,6 +49,10 @@ export default class App extends Component {
         this.perPage,
         this.state.page
       );
+
+      if (!data.total) {
+        toast.error('Nothing found. Repeat the search!');
+      }
       this.totalHits = data.totalHits;
       this.setState({ img: [...this.state.img, ...data.hits] });
     } catch (error) {
@@ -82,6 +88,7 @@ export default class App extends Component {
         )}
         {showModal && <Modal urlImg={imgModal} close={modalClose} />}
         <Circles wrapperClass={css.loader} visible={loader} />
+        <ToastContainer />
       </>
     );
   }
