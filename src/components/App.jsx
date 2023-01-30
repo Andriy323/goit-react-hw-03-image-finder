@@ -4,6 +4,7 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
+import ImgDetails from './ImgDetails/ImgDetails';
 import { getImg } from './shared/shared';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -86,7 +87,9 @@ export default class App extends Component {
         {!loader && img.length !== 0 && page < totalHits / perPage && (
           <Button onClick={loadImg} />
         )}
-        {showModal && <Modal urlImg={imgModal} close={modalClose} />}
+        {showModal && <Modal  close={modalClose}>
+        <ImgDetails urlImg={imgModal} />
+          </Modal>}
         <Circles wrapperClass={css.loader} visible={loader} />
         <ToastContainer />
       </>
