@@ -1,10 +1,11 @@
 
 import { Component } from 'react';
 import style from '../Searchbar/searchbar.module.css';
-
+import PropTypes from 'prop-types';
 export default class Searchbar extends Component {
   state = {
     query: '',
+    
   };
 
   hangleInput = el => {
@@ -32,9 +33,14 @@ export default class Searchbar extends Component {
             value={this.state.query}
             placeholder="Search images and photos"
             onChange={this.hangleInput}
+            required
           />
         </form>
       </header>
     );
   }
+}
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 }

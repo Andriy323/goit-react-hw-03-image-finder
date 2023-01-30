@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
-
+import PropTypes from 'prop-types';
 import style from '../ImageGallery/imageGallery.module.css';
 class ImageGallery extends Component {
   showImg = img => {
@@ -11,17 +11,22 @@ class ImageGallery extends Component {
     const { img } = this.props;
     return (
       <ul className={style.imageGallery}>
-        {img.map(({ id, webformatURL, largeImageURL, tags }) => (
+        {img.map(({ webformatURL, largeImageURL, tags }) => (
           <ImageGalleryItem
-            key={id}
+            key={largeImageURL}
             src={webformatURL}
             alt={tags}
             showImg={this.showImg}
-            test={largeImageURL}
+            largeImg={largeImageURL}
           />
         ))}
       </ul>
     );
   }
 }
+
+ImageGallery.propTypes = {
+  showImgModal: PropTypes.func.isRequired
+}
+
 export default ImageGallery;
