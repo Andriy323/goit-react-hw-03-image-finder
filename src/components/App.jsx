@@ -67,6 +67,8 @@ if(!data.total) toast.error('Nothing found. Repeat the search!');
       showModal: true,
       imgModal: imgLarge,
     });
+    document.body.style.overflow = "hidden"
+
   };
 
   modalClose = () => {
@@ -74,6 +76,8 @@ if(!data.total) toast.error('Nothing found. Repeat the search!');
       showModal: false,
       imgModal: null,
     });
+    document.body.style.overflow = ""
+
   };
 
   render() {
