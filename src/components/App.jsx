@@ -48,10 +48,9 @@ export default class App extends Component {
     try {
       const data = await getImg(query, this.perPage, page);
 
-      if (!data.total) {
-        toast.error('Nothing found. Repeat the search!');
-      }
-
+  
+if(data.total && page ===1) {toast.success(`Found ${data.totalHits} images`)}
+if(!data.total) toast.error('Nothing found. Repeat the search!');
 
       
       this.totalHits = data.totalHits;
