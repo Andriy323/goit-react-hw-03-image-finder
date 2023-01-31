@@ -43,13 +43,10 @@ export default class App extends Component {
 
   async fetchImg() {
     this.setState({ loader: true });
+    const { query, page } = this.state;
 
     try {
-      const data = await getImg(
-        this.state.query,
-        this.perPage,
-        this.state.page
-      );
+      const data = await getImg(query, this.perPage, page);
 
       if (!data.total) {
         toast.error('Nothing found. Repeat the search!');
