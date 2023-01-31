@@ -57,6 +57,7 @@ export default class App extends Component {
       this.totalHits = data.totalHits;
       this.setState({ img: [...this.state.img, ...data.hits] });
     } catch (error) {
+      toast.error('Oooops.... Repeat the search!');
     } finally {
       this.setState({ loader: false });
     }
@@ -87,9 +88,11 @@ export default class App extends Component {
         {!loader && img.length !== 0 && page < totalHits / perPage && (
           <Button onClick={loadImg} />
         )}
-        {showModal && <Modal  close={modalClose}>
-        <ImgDetails urlImg={imgModal} />
-          </Modal>}
+        {showModal && (
+          <Modal close={modalClose}>
+            <ImgDetails urlImg={imgModal} />
+          </Modal>
+        )}
         <Circles wrapperClass={css.loader} visible={loader} />
         <ToastContainer />
       </>

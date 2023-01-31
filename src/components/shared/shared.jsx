@@ -1,5 +1,6 @@
 import axios from 'axios';
 import PropTypes from 'prop-types';
+
 const { REACT_APP_KEY } = process.env;
 
 const instance = axios.create({
